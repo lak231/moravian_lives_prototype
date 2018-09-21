@@ -24,19 +24,22 @@ class Map extends Component {
     createMap() {
         const svg = d3.select('#map-container')
             .append('svg')
-            .attr('width', 1000)
-            .attr('height', 500)
+            .attr('width', '100%')
+            .attr('height', 600)
             .call(d3.zoom().on("zoom", function (){g.attr("transform", d3.event.transform)}))
 
         const projection = d3.geoMercator()
+            .translate([window.innerWidth / 2.125, 600/1.25])
+            .scale(400)
 
-        const g = svg.append("g");
+        const g = svg.append("g")
 
         const path = d3.geoPath().projection(projection)
 
         g.selectAll("path")
             .data(topojson.feature(this.state.data, this.state.data.objects.countries).features)
-            .enter().append("path")
+            .enter()
+            .append("path")
             .attr("d", path)
             .on('mouseover', function() {
                 d3.select(this).style('fill', 'red');
@@ -48,11 +51,7 @@ class Map extends Component {
 
     render() {
         return (
-            <div className="uk-height-1-1 uk-section uk-section-small uk-flex uk-flex-middle uk-text-center">
-                <div className="uk-width-1-1">
-                    <div id='map-container' className="uk-container">
-                    </div>
-                </div>
+            <div id='map-container' className="uk-width-1-1 uk-section uk-section-small uk-flex uk-flex-middle uk-text-center">
             </div>
         )
     }
