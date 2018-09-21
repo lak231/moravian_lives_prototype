@@ -1,0 +1,24 @@
+{
+  "name": "moravian_lives_prototype",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "d3": "^5.7.0",
+    "lodash": "^4.17.11",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "1.1.5",
+    "react-simple-maps": "^0.12.1",
+    "reset-css": "^4.0.1",
+    "topojson": "^3.0.2",
+    "uikit": "^3.0.0-rc.16"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
