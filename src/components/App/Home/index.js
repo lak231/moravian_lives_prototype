@@ -6,9 +6,9 @@ function Home(props) {
         <div className="uk-height-1-1 uk-section uk-section-small uk-flex uk-flex-middle uk-text-center">
             <div className="uk-width-1-1">
                 <div className="uk-container">
-                    <p>
-                        <h1 className="uk-heading-primary">Moravian Lives</h1>
-                    </p>
+
+                    <h1 className="uk-heading-primary">Moravian Lives</h1>
+
 
                     <div className='uk-margin-large-left uk-margin-large-right uk-margin-medium-top uk-margin-medium-bottom'>
                         <p className='.uk-text-break'>
@@ -22,7 +22,7 @@ function Home(props) {
                         </p>
                     </div>
 
-                    <Link className='tm-button-default uk-button uk-button-default uk-button-large' to='/map'> EXPLORE </Link>
+                    <Link className='uk-button uk-button-default uk-button-large' to='/map'> EXPLORE </Link>
                 </div>
             </div>
         </div>
