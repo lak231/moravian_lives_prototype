@@ -77,7 +77,7 @@ class MapSearch extends Component {
 
     render() {
         return (
-                <div className='uk-container uk-container-expand uk-position-bottom uk-padding uk-background-default' >
+                <div className='uk-container uk-container-expand uk-position-bottom uk-padding-small uk-position-z-index uk-background-default' >
                     <button id='search-toggle' type='button' uk-toggle='target: #search-toggle; cls: uk-button-secondary' onClick={this.toggle} className='uk-button uk-button-default uk-button-small'> Search and Filter </button>
                     <div id='MapSearch__Content'>
                     </div>
