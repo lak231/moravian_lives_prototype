@@ -17,10 +17,10 @@ class MapSearch extends Component {
                 .append('svg'),
             margin = {top: 30, right: 20, bottom: 30, left: 50},
             width = 1000 - margin.left - margin.right,
-            height = 270 - margin.top - margin.bottom;
+            height = 150 - margin.top - margin.bottom;
 
         svg.attr('width', 1000)
-            .attr('height', 270)
+            .attr('height', 150)
 
         let brush = d3.brushX()
             .extent([[0, 0], [width, height]])
@@ -66,8 +66,8 @@ class MapSearch extends Component {
     }
 
 
-    toggle(e) {
-        let content = e.target.nextElementSibling;
+    toggle() {
+        let content = document.getElementById('MapSearch__Content');
         if (content.style.maxHeight){
             content.style.maxHeight = null;
         } else {
@@ -77,8 +77,11 @@ class MapSearch extends Component {
 
     render() {
         return (
-                <div className='uk-container uk-container-expand uk-position-bottom uk-padding-small uk-position-z-index uk-background-default' >
-                    <button id='search-toggle' type='button' uk-toggle='target: #search-toggle; cls: uk-button-secondary' onClick={this.toggle} className='uk-button uk-button-default uk-button-small'> Search and Filter </button>
+                <div className='uk-position-bottom-center uk-padding-small uk-position-z-index uk-background-default' >
+                    <div className='uk-inline'>
+                        <button id='search-toggle' type='button' uk-toggle='target: #search-toggle; cls: uk-button-secondary' onClick={this.toggle} className='uk-button uk-button-default uk-button-small'> Search and Filter </button>
+                        <button id='overlay-toggle' type='button' uk-toggle='target: #overlay-toggle; cls: uk-button-secondary' onClick={this.props.overlayToggle} className='uk-button uk-button-default uk-button-small'> Toggle Overlay </button>
+                    </div>
                     <div id='MapSearch__Content'>
                     </div>
                 </div>

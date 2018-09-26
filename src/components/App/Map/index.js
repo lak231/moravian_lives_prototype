@@ -4,11 +4,25 @@ import MapGeo from './MapGeo';
 import MapSearch from './MapSearch';
 
 class Map extends Component {
+    constructor(props) {
+        super(props)
+        this.toggleOverlay = this.toggleOverlay.bind(this)
+        this.state = {
+            overlay: false
+        }
+    }
+
+    toggleOverlay() {
+        this.setState(prevState => ({
+            overlay: !prevState.overlay
+        }))
+    }
+
     render() {
         return (
             <div>
-                <MapGeo/>
-                <MapSearch/>
+                <MapGeo overlay={this.state.overlay}/>
+                <MapSearch overlayToggle={this.toggleOverlay}/>
             </div>
         )
     }
