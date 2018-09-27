@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import L from 'leaflet';
+import * as d3 from 'd3'
 
 import 'leaflet/dist/leaflet.css'
 import './style.css'
@@ -42,7 +43,7 @@ class MapGeo extends Component {
     render() {
         (this.map && this.addOverlay())
         return (
-            <div style={{height: '100vh'}} id='map-container' uk-height-viewport="offset-top: true" className='uk-padding-remove uk-width-1-1'>
+            <div style={{height: '100vh'}} id='map-container' data-uk-height-viewport="offset-top: true" className='uk-padding-remove uk-width-1-1'>
             </div>
         )
     }

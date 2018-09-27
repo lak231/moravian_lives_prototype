@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 
 import MapGeo from './MapGeo';
 import MapSearch from './MapSearch';
+import MapResult from './MapResult'
 
 class Map extends Component {
     constructor(props) {
@@ -23,6 +24,7 @@ class Map extends Component {
             <div>
                 <MapGeo overlay={this.state.overlay}/>
                 <MapSearch overlayToggle={this.toggleOverlay}/>
+                <MapResult />
             </div>
         )
     }

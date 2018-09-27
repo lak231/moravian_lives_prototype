@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom"
 function NavBar (props) {
     return (
 
-            <nav className="uk-navbar" uk-navbar>
+            <nav className="uk-navbar" data-uk-navbar>
                 <div className="uk-navbar-right">
                     <ul className="uk-navbar-nav">
                         <li>
