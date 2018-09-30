@@ -3,6 +3,7 @@ import './style.css';
 import Header from './Header'
 import Home from "./Home";
 import Map from './Map'
+import Individual from './Individual'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 // UIKit
 import UIkit from 'uikit';
@@ -19,7 +20,7 @@ class App extends Component {
                     <Switch>
                         <Route exact path='/' component={Home} />
                         <Route path='/map' component={Map}/>
-                        <Route path='/archive' />
+                        <Route path='/archive' component={Individual}/>
                     </Switch>
                 </div>
             </Router>
