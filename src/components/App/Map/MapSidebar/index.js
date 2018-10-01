@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import * as d3 from 'd3'
 
 import './style.css'
-import MapSearchForm from "../MapSearch/MapSearchForm";
-import MapResultCard from "../MapResult/MapResultCard";
+import MapSearchForm from "./MapSearchForm";
+import MapResultCard from "./MapResultCard";
 import Timeline from "../../Timeline";
 
 export default class MapSidebar extends Component {
@@ -28,7 +28,7 @@ export default class MapSidebar extends Component {
                         <li>
                             <a className="uk-accordion-title" href="#">Search & Filter</a>
                             <div className="uk-accordion-content">
-                                <MapSearchForm/>
+                                <MapSearchForm overlayToggle={this.props.overlayToggle}/>
                                 <Timeline/>
                             </div>
                         </li>

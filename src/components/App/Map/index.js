@@ -22,7 +22,7 @@ class Map extends Component {
         return (
             <div className='uk-inline uk-width-1-1'>
                 <MapGeo overlay={this.state.overlay}/>
-                <MapSidebar/>
+                <MapSidebar overlayToggle={this.toggleOverlay}/>
             </div>
         )
     }

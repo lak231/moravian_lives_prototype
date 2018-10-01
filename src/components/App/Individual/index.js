@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Map from "../Map";
-import MapGeo from "../Map/MapGeo";
+
 
 export default class Individual extends Component {
     render() {
@@ -28,7 +28,7 @@ export default class Individual extends Component {
 
                         </li>
                         <li>
-                            <MapGeo/>
+                            <Map/>
                         </li>
                         <li>Bazinga!</li>
                     </ul>
