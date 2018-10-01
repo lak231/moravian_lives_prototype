@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import L from 'leaflet';
 import * as d3 from 'd3'
+import L from 'leaflet'
 
 import 'leaflet/dist/leaflet.css'
 import './style.css'
@@ -10,8 +10,8 @@ const MAPBOX_TOKEN = 'pk.eyJ1IjoibGFrMjMxIiwiYSI6ImNqbWd3aHlzaTB4NTUzc3JzOGU0OTc
 class MapGeo extends Component {
     constructor(props) {
         super(props)
-        this.createMap = this.createMap.bind(this)
-        this.addOverlay = this.addOverlay.bind(this)
+        // this.createMap = this.createMap.bind(this)
+        // this.addOverlay = this.addOverlay.bind(this)
         this.map = null
         this.imageUrl = 'http://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
         this.imageBounds = [[40.712216, -74.22655], [40.773941, -74.12544]]

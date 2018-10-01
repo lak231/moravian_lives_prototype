@@ -15,10 +15,10 @@ export default class Timeline extends Component {
                 .append('svg'),
             margin = {top: 30, right: 20, bottom: 30, left: 50},
             width = 1000 - margin.left - margin.right,
-            height = 150 - margin.top - margin.bottom;
+            height = 450 - margin.top - margin.bottom;
 
         svg.attr('width', 1000)
-            .attr('height', 150)
+            .attr('height', 450)
 
         let brush = d3.brushX()
             .extent([[0, 0], [width, height]])
