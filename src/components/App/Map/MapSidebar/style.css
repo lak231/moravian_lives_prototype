@@ -1,0 +1,8 @@
+.MapSidebar-hidden{
+    width: 0;
+    padding: 0;
+}
+
+#MapSidebar__Content {
+    overflow-x: hidden;
+}

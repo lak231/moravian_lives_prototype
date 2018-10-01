@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 
 import MapGeo from './MapGeo';
-import MapSearch from './MapSearch';
-import MapResult from './MapResult'
+import MapSidebar from './MapSidebar'
 
 class Map extends Component {
     constructor(props) {
@@ -21,10 +20,9 @@ class Map extends Component {
 
     render() {
         return (
-            <div>
+            <div className='uk-inline uk-width-1-1'>
                 <MapGeo overlay={this.state.overlay}/>
-                <MapSearch overlayToggle={this.toggleOverlay}/>
-                <MapResult />
+                <MapSidebar/>
             </div>
         )
     }
