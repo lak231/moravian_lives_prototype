@@ -30,6 +30,7 @@ class MapGeo extends Component {
             id: 'mapbox.light',
             accessToken: MAPBOX_TOKEN
         }).addTo(this.map)
+        this.map.on('load', this.forceUpdate())
     }
 
     addOverlay() {
@@ -43,7 +44,7 @@ class MapGeo extends Component {
     render() {
         (this.map && this.addOverlay())
         return (
-            <div style={{height: '100vh'}} id='map-container' data-uk-height-viewport="offset-top: true" className='uk-padding-remove uk-width-1-1'>
+            <div style={{'height': '100vh', 'width': '100vw'}} id='map-container' data-uk-height-viewport="offset-top: true" className='uk-padding-remove uk-width-1-1'>
             </div>
         )
     }

@@ -1,8 +1,8 @@
-.MapSidebar-hidden{
-    width: 0;
-    padding: 0;
+.MapSidebar {
+    transform: translateX(600px);
+    transition: transform .3s ease-out;
 }
 
-#MapSidebar__Content {
-    overflow-x: hidden;
+.MapSidebar_show {
+    transform: translateX(0px);
 }
