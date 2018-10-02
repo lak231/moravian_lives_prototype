@@ -38,6 +38,10 @@ class Map extends Component {
 
     }
 
+    handleSearchSubmit() {
+
+    }
+
     handleOverlayToggle() {
         this.setState(prevState => ({
             overlay: !prevState.overlay
@@ -50,6 +54,7 @@ class Map extends Component {
             <div className='Map uk-inline uk-width-1-1'>
                 <MapGeo overlay={this.state.overlay}/>
                 <MapSidebar
+                    onSearchSubmit={this.handleSearchSubmit}
                     onOverlayToggle={this.handleOverlayToggle}
                     searchResults={this.state.data}
                 />

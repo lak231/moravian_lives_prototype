@@ -17,10 +17,13 @@ export default class MapSidebar extends Component {
 
     render() {
         return (
-            <div className='MapSidebar uk-position-right uk-flex-inline'>
-                <button id='MapSidebar__Toggle' style={{'height': '50px'}} className='uk-margin-small-top uk-margin-small-right uk-button uk-background-default' type='button' data-uk-toggle='target: #MapSidebar__Toggle; cls: uk-button-secondary' onClick={this.toggle}><span data-uk-icon="search"/></button>
-                <div className='uk-padding uk-background-default uk-height-1-1 uk-width-xlarge'>
-                    <ul data-uk-accordion="multiple: true">
+            <div data-uk-height-viewport='offset-top: true' className='MapSidebar uk-position-right uk-flex-inline'>
+                <div className='uk-flex uk-flex-column'>
+                    <button style={{'height': '50px'}} className='uk-margin-small-top uk-margin-small-right uk-button uk-background-default' type='button' onClick={this.toggle}><span data-uk-icon="search"/></button>
+                    <button style={{'height': '50px'}} className='uk-margin-small-top uk-margin-small-right uk-button uk-background-default' type='button' onClick={this.toggle}><span data-uk-icon="world"/></button>
+                </div>
+                <div className='uk-padding uk-background-default uk-width-xlarge uk-height-1-1'>
+                    <ul data-uk-accordion="multiple: false" className='uk-height-1-1'>
                         <li>
                             <a className="uk-accordion-title" href="#">Search & Filter</a>
                             <div className="uk-accordion-content">
@@ -28,9 +31,9 @@ export default class MapSidebar extends Component {
                                 <Timeline/>
                             </div>
                         </li>
-                        <li>
+                        <li style={{'height': 'calc(100% - 60px)'}}>
                             <a className="uk-accordion-title" href="#">Results</a>
-                            <div className="uk-accordion-content">
+                            <div className="uk-accordion-content" style={{'overflowY': 'auto', 'height': 'calc(100% - 60px)'}}>
                                 {this.props.searchResults && this.props.searchResults.map(d => <ResultCard key={d.id} data={d}/>)}
                             </div>
                         </li>
