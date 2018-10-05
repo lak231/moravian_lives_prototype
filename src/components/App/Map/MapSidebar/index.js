@@ -7,8 +7,6 @@ import ResultCard from "./ResultCard";
 import Timeline from "../../Timeline";
 
 export default class MapSidebar extends Component {
-
-
     toggle() {
         let content = document.getElementsByClassName('MapSidebar')[0]
         console.log(content)
@@ -27,8 +25,7 @@ export default class MapSidebar extends Component {
                         <li>
                             <a className="uk-accordion-title" href="#">Search & Filter</a>
                             <div className="uk-accordion-content">
-                                <MapSearchForm overlayToggle={this.props.overlayToggle}/>
-                                <Timeline/>
+                                <MapSearchForm onSearchSubmit={this.props.onSearchSubmit}/>
                             </div>
                         </li>
                         <li style={{'height': 'calc(100% - 60px)'}}>

@@ -9,37 +9,44 @@ import './style.css'
 class Map extends Component {
     constructor(props) {
         super(props)
-
+        this.originalData = null
+        this.filteredData = null
         this.state = {
             searchTerm: null,
             language: null,
             gender: null,
             archive: null,
-            data: null,
             maritalStatus: null,
             overlay: false
         }
 
         this.handleOverlayToggle = this.handleOverlayToggle.bind(this)
         this.updateData = this.updateData.bind(this)
+        this.handleSearchSubmit = this.handleSearchSubmit.bind(this)
+        this.updateData = this.updateData.bind(this)
     }
 
     componentDidMount() {
         ContactsAPI.getAll().then((contacts) => {
-            this.setState({ data: contacts })
+            this.originalData = contacts
+            this.filteredData = contacts
         })
     }
 
-    handleQuery() {
-
+    updateData(searchTerm) {
+        let temp
+        if (searchTerm.length > 0) {
+            temp = this.originalData.filter(person => (person['last'].toLowerCase().includes(searchTerm)) ||  (person['first'].toLowerCase().includes(searchTerm)))
+        } else {
+            temp = this.originalData
+        }
+        this.filteredData = temp
     }
 
-    updateData() {
-
-    }
-
-    handleSearchSubmit() {
-
+    handleSearchSubmit(searchTerm) {
+        searchTerm = searchTerm.toLowerCase()
+        this.updateData(searchTerm)
+        this.setState({searchTerm})
     }
 
     handleOverlayToggle() {
@@ -49,14 +56,14 @@ class Map extends Component {
     }
 
     render() {
-        console.log(this.state.data)
+        console.log(this.state.searchTerm, this.filteredData, this.originalData)
         return (
             <div className='Map uk-inline uk-width-1-1'>
                 <MapGeo overlay={this.state.overlay}/>
                 <MapSidebar
                     onSearchSubmit={this.handleSearchSubmit}
                     onOverlayToggle={this.handleOverlayToggle}
-                    searchResults={this.state.data}
+                    searchResults={this.filteredData}
                 />
             </div>
         )
