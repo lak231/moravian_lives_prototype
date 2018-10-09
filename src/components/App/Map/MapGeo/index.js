@@ -16,6 +16,10 @@ class MapGeo extends Component {
         this.imageUrl = 'http://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
         this.imageBounds = [[40.712216, -74.22655], [40.773941, -74.12544]]
         this.image =  L.imageOverlay(this.imageUrl, this.imageBounds)
+        this.feature = null
+        this.svgMap = null
+        this.gMap = null
+        this.update = this.update.bind(this)
     }
 
     componentDidMount() {
@@ -30,7 +34,37 @@ class MapGeo extends Component {
             id: 'mapbox.light',
             accessToken: MAPBOX_TOKEN
         }).addTo(this.map)
-        this.map.on('load', this.forceUpdate())
+        this.svgMap = d3.select(this.map.getPanes().overlayPane).append("svg")
+        this.gMap = this.svgMap.append("g").attr("class", "leaflet-zoom-hide")
+        this.feature = this.gMap.selectAll("circle")
+            .data([{LatLng: new L.LatLng(40.744608, -74.165531)}, {LatLng: new L.LatLng(40.726763, -73.997203)}])
+            .enter().append("circle")
+            .style("stroke", "black")
+            .style("opacity", .6)
+            .style("fill", "red")
+            .style('cursor', 'pointer')
+            .attr("r", 20);
+        this.map.on('moveend', this.update)
+        this.update()
+    }
+
+    update() {
+        console.log('before', this.gMap.node().getBBox())
+        let map = this.map
+        this.feature.attr("transform",
+            function(d) {
+                return "translate("+
+                    map.latLngToLayerPoint(d.LatLng).x +","+
+                    map.latLngToLayerPoint(d.LatLng).y +")";
+            }
+        )
+        let bbox = this.gMap.node().getBBox()
+        this.svgMap.attr("width", bbox.width)
+            .attr("height", bbox.height)
+            .style("left", bbox.x)
+            .style("top", bbox.y);
+        this.gMap.attr("transform", "translate(" + -bbox.x + "," + -bbox.y + ")");
+        console.log('after', this.gMap.node().getBBox())
     }
 
     addOverlay() {
