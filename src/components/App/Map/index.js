@@ -56,10 +56,10 @@ class Map extends Component {
     }
 
     render() {
-        console.log(this.state.searchTerm, this.filteredData, this.originalData)
+        console.log(this.filteredData)
         return (
             <div className='Map uk-inline uk-width-1-1'>
-                <MapGeo overlay={this.state.overlay}/>
+                <MapGeo searchResults={this.filteredData}/>
                 <MapSidebar
                     onSearchSubmit={this.handleSearchSubmit}
                     onOverlayToggle={this.handleOverlayToggle}

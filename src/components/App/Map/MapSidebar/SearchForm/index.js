@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import * as d3 from 'd3'
+import Timeline from "../../../Timeline";
 
 export default class MapSearchForm extends Component {
     constructor(props) {
@@ -42,7 +42,7 @@ export default class MapSearchForm extends Component {
                         <ul className="uk-tab-right" data-uk-tab>
                             <li className="uk-active uk-flex-inline uk-flex-middle uk-margin-small-bottom">
                                 <a id='nameSearchToggle' onClick={this.handleSearchTypeSwitch}>by name</a>
-                                <div className="uk-width-medium">
+                                <div className="uk-width-small">
                                     <select onChange={this.handleTest} className="uk-select">
                                         <option>Full Name</option>
                                         <option>First Name</option>
@@ -52,15 +52,42 @@ export default class MapSearchForm extends Component {
                             </li>
                             <li className="uk-flex-inline uk-flex-middle">
                                 <a id='placeSearchToggle' onClick={this.handleSearchTypeSwitch}>by place</a>
-                                <div className="uk-width-medium">
+                                <div className="uk-width-small">
                                     <select className="uk-select" disabled>
-                                        <option>Birth place</option>
-                                        <option>Death place</option>
+                                        <option>Both</option>
+                                        <option>Birth Place</option>
+                                        <option>Death Place</option>
                                     </select>
                                 </div>
                             </li>
                         </ul>
                     </div>
+                    <div data-uk-grid className='uk-grid-small uk-child-width-1-3'>
+                        <div>
+                            <div className='uk-text-uppercase uk-text-small uk-margin-small-bottom'>Language</div>
+                            <div className="uk-width-small uk-flex uk-flex-column">
+                                <label><input className="uk-checkbox" type="checkbox" checked='true'/> English</label>
+                                <label><input className="uk-checkbox" type="checkbox" checked='true'/> German</label>
+                                <label><input className="uk-checkbox" type="checkbox" checked='true'/> Swedish</label>
+                            </div>
+                        </div>
+                        <div>
+                            <div className='uk-text-uppercase uk-text-small uk-margin-small-bottom'>Gender</div>
+                            <div className="uk-width-small uk-flex uk-flex-column">
+                                <label><input className="uk-checkbox" type="checkbox" data-checked='checked: true'/> Male</label>
+                                <label><input className="uk-checkbox" type="checkbox" checked='true'/> Female</label>
+                            </div>
+                        </div>
+                        <div>
+                            <div className='uk-text-uppercase uk-text-small uk-margin-small-bottom'>Marital Status</div>
+                            <div className="uk-width-small uk-flex uk-flex-column">
+                                <label><input className="uk-checkbox" type="checkbox" checked='true'/> Married</label>
+                                <label><input className="uk-checkbox" type="checkbox" checked='true'/> Single</label>
+                                <label><input className="uk-checkbox" type="checkbox" checked='true'/> Child</label>
+                            </div>
+                        </div>
+                    </div>
+                    <Timeline/>
                 </fieldset>
             </form>
         )

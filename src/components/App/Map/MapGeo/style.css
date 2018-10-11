@@ -1,3 +1,7 @@
 #map-container {
     z-index: 0
 }
+
+.my-div-icon {
+    background: black;
+}

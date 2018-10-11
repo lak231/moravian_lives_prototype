@@ -14,11 +14,11 @@ export default class Timeline extends Component {
         let svg = d3.select("#Timeline")
                 .append('svg'),
             margin = {top: 30, right: 20, bottom: 30, left: 50},
-            width = 1000 - margin.left - margin.right,
-            height = 450 - margin.top - margin.bottom;
+            width = 450 - margin.left - margin.right,
+            height = 150 - margin.top - margin.bottom;
 
-        svg.attr('width', 1000)
-            .attr('height', 450)
+        svg.attr('width', 450)
+            .attr('height', 150)
 
         let brush = d3.brushX()
             .extent([[0, 0], [width, height]])
