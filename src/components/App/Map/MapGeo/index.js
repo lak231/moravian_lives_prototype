@@ -4,11 +4,25 @@ import { CircleMarker, Map, TileLayer, Polyline } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import './style.css'
 
-const MAPBOX_TOKEN = 'pk.eyJ1IjoibGFrMjMxIiwiYSI6ImNqbWd3aHlzaTB4NTUzc3JzOGU0OTc3NGsifQ.APNL_JT8i4zJfhgiKCDbsw'
+// const MAPBOX_TOKEN = 'pk.eyJ1IjoibGFrMjMxIiwiYSI6ImNqbWd3aHlzaTB4NTUzc3JzOGU0OTc3NGsifQ.APNL_JT8i4zJfhgiKCDbsw'
 
 class MapGeo extends Component {
-    test(e) {
-        console.log(e.target.id)
+    constructor(props) {
+        super(props)
+        this.state = {
+            selectedID: null
+        }
+        this.handleCircleK = this.handleCircleK.bind(this)
+        this.handleCircleBlur = this.handleCircleBlur.bind(this)
+    }
+
+    handleCircleK(d) {
+        this.setState({selectedID: d.id})
+    }
+
+    handleCircleBlur() {
+        this.setState({selectedID: null})
+        console.log('state yo', this.state)
     }
 
     componentDidMount() {
@@ -22,11 +36,17 @@ class MapGeo extends Component {
                     attribution='Tiles © Esri — Esri, DeLorme, NAVTEQ'
                     url={'http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'}
                 />
-                {this.props.searchResults && this.props.searchResults.map((d) =>
-                        <CircleMarker key={d.id} id={d.id} center={d.birthPlaceCoord}/>
-                        // <CircleMarker center={d.deathPlaceCoord}/>
-                        // <Polyline positions={[d.birthPlaceCoord, d.deathPlaceCoord]}/>
-                )}
+                {this.props.searchResults && this.props.searchResults.map((d) => {
+                    let bound = this.handleCircleK.bind(this, d)
+                    let boundBlur = this.handleCircleBlur.bind(this)
+                    return (
+                        <div>
+                        <CircleMarker key={d.id} center={d.birthPlaceCoord} color={this.state.selectedID === d.id ? 'red' : 'default'} onClick={bound} onBlur={boundBlur}/>
+                        <CircleMarker center={d.deathPlaceCoord} color={this.state.selectedID === d.id ? 'red' : 'default'} onClick={bound} onBlur={boundBlur}/>
+                        <Polyline positions={[d.birthPlaceCoord, d.deathPlaceCoord]} color={this.state.selectedID === d.id ? 'red' : 'default'} onClick={bound} onBlur={boundBlur}/>
+                        </div>
+                    )
+                })}
             </Map>
 
         )

@@ -1,0 +1,36 @@
+{
+    id: '0001',
+    last: 'Boehler',
+    first: 'Anton Peter',
+    birthPlace: 'Philadelphia',
+    birthPlaceCoord: [39.9526, -75.1652],
+    deathPlace: 'Bethlehem',
+    deathPlaceCoord: [40.6259, -75.3705],
+    gender: 'male',
+    maritalStatus: 'child',
+    language: 'german'
+},
+{
+    id: '0003',
+    last: 'Okely',
+    first: 'Joanna',
+    birthPlace: 'Philadelphia',
+    birthPlaceCoord: [39.9526, -75.1652],
+    deathPlace: 'Bethlehem',
+    deathPlaceCoord: [40.6259, -75.3705],
+    gender: 'female',
+    maritalStatus: 'married',
+    language: 'german'
+},
+{
+    id: '0008',
+    last: 'Burnside',
+    first: 'Rebecca (Becky)',
+    birthPlace: 'Savannah',
+    birthPlaceCoord: [32.0809, -81.0912],
+    deathPlace: 'Nazareth',
+    deathPlaceCoord: [40.7404, -75.3096],
+    gender: 'female',
+    maritalStatus: 'child',
+    language: 'german'
+}

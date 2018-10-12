@@ -1,10 +1,8 @@
 import React, {Component} from 'react'
-import * as d3 from 'd3'
 
 import './style.css'
-import MapSearchForm from "./SearchForm";
-import ResultCard from "./ResultCard";
-import Timeline from "../../Timeline";
+import MapSearchForm from "./SearchForm"
+import ResultCard from "./ResultCard"
 
 export default class MapSidebar extends Component {
     toggle() {
@@ -22,13 +20,13 @@ export default class MapSidebar extends Component {
                 <div className='uk-padding uk-background-default uk-width-xlarge uk-height-1-1'>
                     <ul data-uk-accordion="multiple: false" className='uk-height-1-1'>
                         <li>
-                            <a className="uk-accordion-title" href="#">Search & Filter</a>
+                            <a className="uk-accordion-title">Search & Filter</a>
                             <div className="uk-accordion-content">
-                                <MapSearchForm onSearchSubmit={this.props.onSearchSubmit}/>
+                                <MapSearchForm filters={this.props.filters} onFormEvent={this.props.onFormEvent} onSearchSubmit={this.props.onSearchSubmit}/>
                             </div>
                         </li>
                         <li style={{'height': 'calc(100% - 60px)'}}>
-                            <a className="uk-accordion-title" href="#">Results</a>
+                            <a className="uk-accordion-title">Results</a>
                             <div className="uk-accordion-content" style={{'overflowY': 'auto', 'height': 'calc(100% - 60px)'}}>
                                 {this.props.searchResults && <p>showing {this.props.searchResults.length} results</p>}
                                 {this.props.searchResults && this.props.searchResults.map(d => <ResultCard key={d.id} data={d}/>)}
