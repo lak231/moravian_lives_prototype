@@ -41,9 +41,9 @@ class MapGeo extends Component {
                     let boundBlur = this.handleCircleBlur.bind(this)
                     return (
                         <div>
-                        <CircleMarker key={d.id} center={d.birthPlaceCoord} color={this.state.selectedID === d.id ? 'red' : 'default'} onClick={bound} onBlur={boundBlur}/>
-                        <CircleMarker center={d.deathPlaceCoord} color={this.state.selectedID === d.id ? 'red' : 'default'} onClick={bound} onBlur={boundBlur}/>
-                        <Polyline positions={[d.birthPlaceCoord, d.deathPlaceCoord]} color={this.state.selectedID === d.id ? 'red' : 'default'} onClick={bound} onBlur={boundBlur}/>
+                        <CircleMarker key={d.id} center={d.birthPlaceCoord} color={this.state.selectedID === d.id ? 'red' : 'gray'} onClick={bound} onBlur={boundBlur}/>
+                        <CircleMarker center={d.deathPlaceCoord} color={this.state.selectedID === d.id ? 'red' : 'gray'} onClick={bound} onBlur={boundBlur}/>
+                        <Polyline positions={[d.birthPlaceCoord, d.deathPlaceCoord]} color={this.state.selectedID === d.id ? 'red' : 'gray'} onClick={bound} onBlur={boundBlur}/>
                         </div>
                     )
                 })}

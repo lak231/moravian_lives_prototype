@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {XYPlot, XAxis, YAxis, HorizontalGridLines, VerticalGridLines, LineSeries} from 'react-vis'
+import {XYPlot, XAxis, YAxis, VerticalRectSeries, Highlight} from 'react-vis'
 
 import '../../../../../../node_modules/react-vis/dist/style.css'
 
@@ -110,22 +110,26 @@ export default class MapSearchForm extends Component {
                 </fieldset>
                 <div className='uk-margin'>
                     <XYPlot width={450} height={150}>
-                        <VerticalGridLines />
-                        <HorizontalGridLines />
                         <XAxis />
                         <YAxis />
-                        <LineSeries data={[
-                            {x: 0, y: 8},
-                            {x: 1, y: 5},
-                            {x: 2, y: 4},
-                            {x: 3, y: 9},
-                            {x: 4, y: 1},
-                            {x: 5, y: 7},
-                            {x: 6, y: 6},
-                            {x: 7, y: 3},
-                            {x: 8, y: 2},
-                            {x: 9, y: 0}
-                        ]} />
+                        <VerticalRectSeries
+                            data={[
+                                {x0: 0, x: 1, y: 1},
+                                {x0: 1, x: 2, y: 2},
+                                {x0: 2, x: 3, y: 10},
+                                {x0: 3, x: 4, y: 6},
+                                {x0: 4, x: 5, y: 5},
+                                {x0: 5, x: 6, y: 3},
+                                {x0: 6, x: 7, y: 1}
+                            ]}
+                            stroke="white"
+                            colorType="literal"
+                        />
+                        <Highlight
+                            color="#829AE3"
+                            drag
+                            enableY={false}
+                        />
                     </XYPlot>
                 </div>
                 <fieldset className="uk-fieldset">

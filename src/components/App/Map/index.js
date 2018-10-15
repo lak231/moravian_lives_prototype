@@ -6,17 +6,17 @@ import MapGeo from './MapGeo';
 import MapSidebar from './MapSidebar'
 
 import './style.css'
+
 class Map extends Component {
     constructor(props) {
         super(props)
         this.originalData = null
-        this.filteredData = null
         this.state = {
-            search: {
-                searchTerm: null,
-                searchType: 'name-full'
-            },
             filters: {
+                search: {
+                    searchTerm: '',
+                    searchType: 'name-full'
+                },
                 language: {
                     english: false,
                     german: false,
@@ -31,155 +31,119 @@ class Map extends Component {
                     married: false,
                     single: false,
                     child: false
-                }
-            },
-            timeline: {
-                start: null,
-                end: null,
-                type: 'birth'
+                },
+                // timeline: {
+                //     start: null,
+                //     end: null,
+                //     type: 'birth'
+                // }
             },
             selectedID: null,
-            filteredData: null,
-            results: null,
+            results: null
         }
-        this.updateResult = this.updateResult.bind(this)
+        this.updateResults = this.updateResults.bind(this)
         this.handleFormEvent = this.handleFormEvent.bind(this)
     }
 
     componentDidMount() {
         ContactsAPI.getAll().then((contacts) => {
             this.originalData = contacts
-            this.setState({filteredData: contacts, results: contacts})
+            this.setState({results: contacts})
         })
     }
 
-    handleFormEvent(name, value = this.state.search.searchTerm) {
-        console.log('event triggered')
-        let temp
+    handleFormEvent(name, value = this.state.filters.search.searchTerm) {
+        let filters = {...this.state.filters}
         switch(name) {
             case 'searchTerm':
-                value = value.toLowerCase()
-                switch(this.state.search.searchType) {
-                    case 'name-full':
-                        temp = this.originalData.filter(person => (person['last'].toLowerCase().includes(value)) ||  (person['first'].toLowerCase().includes(value)))
-                        this.setState({search:{...this.state.search, searchTerm: value}, filteredData: temp})
-                        break
-                    case 'name-last':
-                        temp = this.originalData.filter(person => (person['last'].toLowerCase().includes(value)))
-                        this.setState({search:{...this.state.search, searchTerm: value}, filteredData: temp})
-                        break
-                    case 'name-first':
-                        temp = this.originalData.filter(person => (person['first'].toLowerCase().includes(value)))
-                        this.setState({search:{...this.state.search, searchTerm: value}, filteredData: temp})
-                        break
-                    case 'place-birth':
-                        temp = this.originalData.filter(person => (person['birthPlace'].toLowerCase().includes(value)))
-                        this.setState({search:{...this.state.search, searchTerm: value}, filteredData: temp})
-                        break
-                    case 'place-death':
-                        temp = this.originalData.filter(person => (person['deathPlace'].toLowerCase().includes(value)))
-                        this.setState({search:{...this.state.search, searchTerm: value}, filteredData: temp})
-                        break
-                    case 'place-all':
-                        temp = this.originalData.filter(person => (person['deathPlace'].toLowerCase().includes(value) || person['birthPlace'].toLowerCase().includes(value)))
-                        this.setState({search:{...this.state.search, searchTerm: value}, filteredData: temp})
-                        break
-                    default:
-                        break
+                filters.search.searchTerm = value.toLowerCase()
+                break
+            case 'name-full':
+            case 'name-last':
+            case 'name-first':
+            case 'place-birth':
+            case 'place-death':
+            case 'place-all':
+                filters.search.searchType = name
+                break
+            default:
+                if (name in filters.gender) {
+                    filters.gender[name] = !filters.gender[name]
+                } else if (name in filters.maritalStatus) {
+                    filters.maritalStatus[name] = !filters.maritalStatus[name]
+                } else if (name in this.state.filters.language) {
+                    filters.language[name] = !filters.language[name]
                 }
                 break
+        }
+        this.updateResults(filters)
+    }
 
-            case 'name-full':
-                if (this.state.search.searchTerm) {
-                    temp = this.originalData.filter(person => (person['last'].toLowerCase().includes(value)) ||  (person['first'].toLowerCase().includes(value)))
-                    this.setState({search:{...this.state.search, searchType: name}, filteredData: temp})
-                } else {
-                    this.setState({search:{...this.state.search, searchType: name}})
+    updateResults(filters) {
+        console.log(filters)
+        let activeFilters = {}
+        let categories = Object.keys(filters)
+        categories.splice(categories.indexOf('search'), 1)
+        for (const key of categories) {
+            let allActive = false
+            let options = Object.keys(filters[key])
+            activeFilters[key] = {}
+            for (const subKey of options) {
+                allActive = allActive || filters[key][subKey]
+                if (filters[key][subKey]) {
+                    activeFilters[key][subKey] = true
                 }
+            }
+            if (!allActive && key !== 'search') activeFilters[key] = true
+        }
+
+        let filteredData
+        switch(filters.search.searchType) {
+            case 'name-full':
+                filteredData = this.originalData.filter((person) => person['last'].toLowerCase().includes(filters.search.searchTerm) || person['first'].toLowerCase().includes(filters.search.searchTerm))
                 break
             case 'name-last':
-                if (this.state.search.searchTerm) {
-                    temp = this.originalData.filter(person => (person['last'].toLowerCase().includes(value)))
-                    this.setState({search:{...this.state.search, searchType: name}, filteredData: temp})
-                } else {
-                    this.setState({search:{...this.state.search, searchType: name}})
-                }
+                filteredData = this.originalData.filter((person) => person['last'].toLowerCase().includes(filters.search.searchTerm))
                 break
             case 'name-first':
-                if (this.state.search.searchTerm) {
-                    temp = this.originalData.filter(person => (person['first'].toLowerCase().includes(value)))
-                    this.setState({search:{...this.state.search, searchType: name}, filteredData: temp})
-                } else {
-                    this.setState({search:{...this.state.search, searchType: name}})
-                }
+                filteredData = this.originalData.filter((person) => person['first'].toLowerCase().includes(filters.search.searchTerm))
                 break
             case 'place-birth':
-                if (this.state.search.searchTerm) {
-                    temp = this.originalData.filter(person => (person['birthPlace'].toLowerCase().includes(value)))
-                    this.setState({search:{...this.state.search, searchType: name}, filteredData: temp})
-                } else {
-                    this.setState({search:{...this.state.search, searchType: name}})
-                }
+                filteredData = this.originalData.filter((person) => person['birthPlace'].toLowerCase().includes(filters.search.searchTerm))
                 break
             case 'place-death':
-                if (this.state.search.searchTerm) {
-                    temp = this.originalData.filter(person => (person['deathPlace'].toLowerCase().includes(value)))
-                    this.setState({search:{...this.state.search, searchType: name}, filteredData: temp})
-                } else {
-                    this.setState({search:{...this.state.search, searchType: name}})
-                }
+                filteredData = this.originalData.filter((person) => person['deathPlace'].toLowerCase().includes(filters.search.searchTerm))
                 break
             case 'place-all':
-                if (this.state.search.searchTerm) {
-                    temp = this.originalData.filter(person => (person['deathPlace'].toLowerCase().includes(value) || person['birthPlace'].toLowerCase().includes(value)))
-                    this.setState({search: {...this.state.search, searchType: name}, filteredData: temp})
-                } else {
-                    this.setState({search:{...this.state.search, searchType: name}})
-                }
-                break
-
-            default:
-                if (name in this.state.filters.gender) {
-                    this.setState({filters: {...this.state.filters, gender:{...this.state.filters.gender, [name]: !this.state.filters.gender[name]}}})
-                } else if (name in this.state.filters.maritalStatus) {
-                    this.setState({filters: {...this.state.filters, maritalStatus:{...this.state.filters.maritalStatus, [name]: !this.state.filters.maritalStatus[name]}}})
-                } else if (name in this.state.filters.language) {
-                    this.setState({filters: {...this.state.filters, language:{...this.state.filters.language, [name]: !this.state.filters.language[name]}}})
-                }
+                filteredData = this.originalData.filter((person) => person['birthPlace'].toLowerCase().includes(filters.search.searchTerm) || person['deathPlace'].toLowerCase().includes(filters.search.searchTerm))
                 break
         }
-        this.updateResult()
-    }
 
-    updateResult() {
-        let test = false
-        for (let key in this.state.filters) {
-            for (let subKey in this.state.filters[key]) {
-                test = test || this.state.filters[key][subKey]
+        let results = filteredData.filter(
+            (person) => {
+                let passed = true
+                for (const key of categories) {
+                    passed = passed && ((typeof activeFilters[key] !== 'boolean' && person[key] in activeFilters[key]) || (typeof activeFilters[key] === 'boolean' && activeFilters[key]))
+                }
+                return passed
             }
-        }
-        if (!test) {
-            this.setState({results: this.state.filteredData})
-        } else {
-            let temp = this.state.filteredData.filter((data) => {
-                if (this.state.filters.gender[data.gender] && this.state.filters.language[data.language] && this.state.filters.maritalStatus[data.maritalStatus]) {
-                    return data
-                }
-            })
-            this.setState({results: temp})
-        }
+        )
+
+
+
+        this.setState({filters, results})
     }
+
+
 
     render() {
-        console.log(this.state)
-        if (this.state.filteredData) {
+        if (this.state.results) {
             return (
                 <div className='Map uk-inline uk-width-1-1'>
                     <MapGeo searchResults={this.state.results}/>
                     <MapSidebar
                         onFormEvent={this.handleFormEvent}
                         filters={this.state.filters}
-                        onSearchSubmit={this.handleSearchSubmit}
                         searchResults={this.state.results}
                     />
                 </div>
