@@ -22,7 +22,7 @@ export default class MapSidebar extends Component {
                         <li>
                             <a className="uk-accordion-title">Search & Filter</a>
                             <div className="uk-accordion-content">
-                                <MapSearchForm filters={this.props.filters} onFormEvent={this.props.onFormEvent} onSearchSubmit={this.props.onSearchSubmit}/>
+                                <MapSearchForm filters={this.props.filters} onFormEvent={this.props.onFormEvent} timelineData = {this.props.timelineData}/>
                             </div>
                         </li>
                         <li style={{'height': 'calc(100% - 60px)'}}>

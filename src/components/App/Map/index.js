@@ -11,6 +11,7 @@ class Map extends Component {
     constructor(props) {
         super(props)
         this.originalData = null
+        this.timelineData = null
         this.state = {
             filters: {
                 search: {
@@ -32,11 +33,11 @@ class Map extends Component {
                     single: false,
                     child: false
                 },
-                // timeline: {
-                //     start: null,
-                //     end: null,
-                //     type: 'birth'
-                // }
+                timeline: {
+                    start: null,
+                    end: null,
+                    type: 'day-birth'
+                }
             },
             selectedID: null,
             results: null
@@ -66,6 +67,14 @@ class Map extends Component {
             case 'place-all':
                 filters.search.searchType = name
                 break
+            case 'day-birth':
+            case 'day-death':
+                filters.timeline.type = name
+                break
+            case 'range':
+                filters.timeline.start = value[0]
+                filters.timeline.end = value[1]
+                break
             default:
                 if (name in filters.gender) {
                     filters.gender[name] = !filters.gender[name]
@@ -80,10 +89,10 @@ class Map extends Component {
     }
 
     updateResults(filters) {
-        console.log(filters)
         let activeFilters = {}
         let categories = Object.keys(filters)
         categories.splice(categories.indexOf('search'), 1)
+        categories.splice(categories.indexOf('timeline'), 1)
         for (const key of categories) {
             let allActive = false
             let options = Object.keys(filters[key])
@@ -125,11 +134,23 @@ class Map extends Component {
                 for (const key of categories) {
                     passed = passed && ((typeof activeFilters[key] !== 'boolean' && person[key] in activeFilters[key]) || (typeof activeFilters[key] === 'boolean' && activeFilters[key]))
                 }
+                // if (filters.timeline.start && filters.timeline.end) {
+                //     let tempDate
+                //     switch(filters.timeline.type) {
+                //         case 'day-birth':
+                //             tempDate = new Date(person['birthDay'])
+                //             passed = passed && (tempDate >= filters.timeline.start) && (tempDate <= filters.timeline.end)
+                //             console.log(passed)
+                //             break
+                //         case 'day-death':
+                //             tempDate = new Date(person['deathDay'])
+                //             passed = passed && (tempDate >= filters.timeline.start) && (tempDate <= filters.timeline.end)
+                //             break
+                //     }
+                // }
                 return passed
             }
         )
-
-
 
         this.setState({filters, results})
     }
@@ -137,6 +158,7 @@ class Map extends Component {
 
 
     render() {
+        console.log(this.state)
         if (this.state.results) {
             return (
                 <div className='Map uk-inline uk-width-1-1'>
@@ -145,6 +167,7 @@ class Map extends Component {
                         onFormEvent={this.handleFormEvent}
                         filters={this.state.filters}
                         searchResults={this.state.results}
+                        timelineData = {this.timelineData}
                     />
                 </div>
             )

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {XYPlot, XAxis, YAxis, VerticalRectSeries, Highlight} from 'react-vis'
+import Timeline from './Timeline'
 
 import '../../../../../../node_modules/react-vis/dist/style.css'
 
@@ -108,32 +108,11 @@ export default class MapSearchForm extends Component {
                         </div>
                     </div>
                 </fieldset>
-                <div className='uk-margin'>
-                    <XYPlot width={450} height={150}>
-                        <XAxis />
-                        <YAxis />
-                        <VerticalRectSeries
-                            data={[
-                                {x0: 0, x: 1, y: 1},
-                                {x0: 1, x: 2, y: 2},
-                                {x0: 2, x: 3, y: 10},
-                                {x0: 3, x: 4, y: 6},
-                                {x0: 4, x: 5, y: 5},
-                                {x0: 5, x: 6, y: 3},
-                                {x0: 6, x: 7, y: 1}
-                            ]}
-                            stroke="white"
-                            colorType="literal"
-                        />
-                        <Highlight
-                            color="#829AE3"
-                            drag
-                            enableY={false}
-                        />
-                    </XYPlot>
-                </div>
+
                 <fieldset className="uk-fieldset">
+                    <Timeline timelineData = {this.props.timelineData} onFormEvent={this.props.onFormEvent} range={this.props.filters.timeline}/>
                 </fieldset>
+
             </form>
         )
     }
