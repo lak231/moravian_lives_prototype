@@ -4,10 +4,10 @@
     first: 'Anton Peter',
     birthPlace: 'Philadelphia',
     birthPlaceCoord: [39.9526, -75.1652],
-    birthDay: '10-26-1743'
+    birthDay: '10-26-1743',
     deathPlace: 'Bethlehem',
     deathPlaceCoord: [40.6259, -75.3705],
-    deathDay: '12/9/1744'
+    deathDay: '12/9/1744',
     gender: 'male',
     maritalStatus: 'child',
     language: 'german'

@@ -19,9 +19,11 @@ export default class Timeline extends Component {
     render() {
         const selectionStart = this.props.range.start
         const selectionEnd = this.props.range.end
+        const dateStart = new Date(selectionStart)
+        const dateEnd = new Date(selectionEnd)
         return (
             <div className='uk-margin-small-top'>
-                <XYPlot stackBy={'y'} width={450} height={150} xType='time' xDomain={[new Date('1/1/1600'), new Date()]}>
+                <XYPlot stackBy={'y'} width={520} height={150} xType='time' xDomain={[new Date('1/1/1600'), new Date()]}>
                     <XAxis tickFormat={v => new Date(v).getFullYear()}/>
                     <YAxis />
                     <VerticalRectSeries
@@ -61,7 +63,7 @@ export default class Timeline extends Component {
                 </div>
                 {selectionEnd && selectionStart &&
                 <div className='uk-flex uk-flex-center uk-margin-small-top'>
-                    <p>from {new Date(selectionStart).getFullYear()} to {new Date(selectionEnd).getFullYear()}</p>
+                    <p>from {`${dateStart.getFullYear()}-${dateStart.getMonth()}-${dateStart.getDate()}`} to {`${dateEnd.getFullYear()}-${dateEnd.getMonth()}-${dateEnd.getDate()}`}</p>
                 </div>
                 }
             </div>

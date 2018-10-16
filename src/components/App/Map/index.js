@@ -134,20 +134,19 @@ class Map extends Component {
                 for (const key of categories) {
                     passed = passed && ((typeof activeFilters[key] !== 'boolean' && person[key] in activeFilters[key]) || (typeof activeFilters[key] === 'boolean' && activeFilters[key]))
                 }
-                // if (filters.timeline.start && filters.timeline.end) {
-                //     let tempDate
-                //     switch(filters.timeline.type) {
-                //         case 'day-birth':
-                //             tempDate = new Date(person['birthDay'])
-                //             passed = passed && (tempDate >= filters.timeline.start) && (tempDate <= filters.timeline.end)
-                //             console.log(passed)
-                //             break
-                //         case 'day-death':
-                //             tempDate = new Date(person['deathDay'])
-                //             passed = passed && (tempDate >= filters.timeline.start) && (tempDate <= filters.timeline.end)
-                //             break
-                //     }
-                // }
+                if (filters.timeline.start && filters.timeline.end) {
+                    let tempDate
+                    switch(filters.timeline.type) {
+                        case 'day-birth':
+                            tempDate = new Date(person['birthDay'])
+                            passed = passed && (tempDate >= filters.timeline.start) && (tempDate <= filters.timeline.end)
+                            break
+                        case 'day-death':
+                            tempDate = new Date(person['deathDay'])
+                            passed = passed && (tempDate >= filters.timeline.start) && (tempDate <= filters.timeline.end)
+                            break
+                    }
+                }
                 return passed
             }
         )
@@ -158,7 +157,6 @@ class Map extends Component {
 
 
     render() {
-        console.log(this.state)
         if (this.state.results) {
             return (
                 <div className='Map uk-inline uk-width-1-1'>
