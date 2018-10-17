@@ -11,7 +11,10 @@ class Map extends Component {
     constructor(props) {
         super(props)
         this.originalData = null
-        this.timelineData = null
+        this.timelineData = {
+            birthDay: [],
+            deathDay: []
+        }
         this.state = {
             filters: {
                 search: {
@@ -44,13 +47,45 @@ class Map extends Component {
         }
         this.updateResults = this.updateResults.bind(this)
         this.handleFormEvent = this.handleFormEvent.bind(this)
+        this.generateTimelineData = this.generateTimelineData.bind(this)
+        this.handleCircleSelect = this.handleCircleSelect.bind(this)
     }
 
     componentDidMount() {
         ContactsAPI.getAll().then((contacts) => {
             this.originalData = contacts
             this.setState({results: contacts})
+            this.generateTimelineData(contacts)
         })
+    }
+
+    generateTimelineData (results) {
+        let tempBirth = {}
+        let tempDeath = {}
+        results.forEach(
+            person => {
+                if (!(new Date(person['birthDay']).getFullYear() in tempBirth)) {
+                    tempBirth[(new Date(person['birthDay']).getFullYear())] = 1
+                } else {
+                    tempBirth[(new Date(person['birthDay']).getFullYear())] += 1
+                }
+                if (!(new Date(person['deathDay']).getFullYear() in tempDeath)) {
+                    tempDeath[(new Date(person['deathDay']).getFullYear())] = 1
+                } else {
+                    tempDeath[(new Date(person['deathDay']).getFullYear())] += 1
+                }
+            }
+        )
+        this.timelineData = {
+            birthDay: [{x: 0, y: 0}],
+            deathDay: [{x: 0, y: 0}]
+        }
+        Object.entries(tempBirth).forEach(
+            ([key, value]) => this.timelineData.birthDay.push({x: new Date(key).getTime(), y: value})
+        );
+        Object.entries(tempDeath).forEach(
+            ([key, value]) => this.timelineData.deathDay.push({x: new Date(key).getTime(), y: value})
+        );
     }
 
     handleFormEvent(name, value = this.state.filters.search.searchTerm) {
@@ -86,6 +121,10 @@ class Map extends Component {
                 break
         }
         this.updateResults(filters)
+    }
+
+    handleCircleSelect(selectedID) {
+        this.setState({selectedID})
     }
 
     updateResults(filters) {
@@ -126,6 +165,8 @@ class Map extends Component {
             case 'place-all':
                 filteredData = this.originalData.filter((person) => person['birthPlace'].toLowerCase().includes(filters.search.searchTerm) || person['deathPlace'].toLowerCase().includes(filters.search.searchTerm))
                 break
+            default:
+                break
         }
 
         let results = filteredData.filter(
@@ -145,27 +186,34 @@ class Map extends Component {
                             tempDate = new Date(person['deathDay'])
                             passed = passed && (tempDate >= filters.timeline.start) && (tempDate <= filters.timeline.end)
                             break
+                        default:
+                            break
                     }
                 }
                 return passed
             }
         )
-
         this.setState({filters, results})
     }
 
 
 
     render() {
+        let timelineData
+        if (this.state.filters.timeline.type === 'day-death') {
+            timelineData = this.timelineData.deathDay
+        } else {
+            timelineData = this.timelineData.birthDay
+        }
         if (this.state.results) {
             return (
                 <div className='Map uk-inline uk-width-1-1'>
-                    <MapGeo searchResults={this.state.results}/>
+                    <MapGeo searchResults={this.state.results} onCircleSelect={this.handleCircleSelect} selectedID={this.state.selectedID}/>
                     <MapSidebar
                         onFormEvent={this.handleFormEvent}
                         filters={this.state.filters}
                         searchResults={this.state.results}
-                        timelineData = {this.timelineData}
+                        timelineData = {timelineData}
                     />
                 </div>
             )

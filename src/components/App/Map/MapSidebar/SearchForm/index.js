@@ -110,7 +110,7 @@ export default class MapSearchForm extends Component {
                 </fieldset>
 
                 <fieldset className="uk-fieldset">
-                    <Timeline timelineData = {this.props.timelineData} onFormEvent={this.props.onFormEvent} range={this.props.filters.timeline}/>
+                    <Timeline timelineData={this.props.timelineData} onFormEvent={this.props.onFormEvent} range={this.props.filters.timeline}/>
                 </fieldset>
 
             </form>

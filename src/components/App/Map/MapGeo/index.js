@@ -9,20 +9,19 @@ import './style.css'
 class MapGeo extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            selectedID: null
-        }
         this.handleCircleK = this.handleCircleK.bind(this)
-        this.handleCircleBlur = this.handleCircleBlur.bind(this)
+    }
+
+    componentWillMount() {
+        document.addEventListener('mousedown', this.handleCircleK, false)
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleCircleK, false)
     }
 
     handleCircleK(d) {
-        this.setState({selectedID: d.id})
-    }
-
-    handleCircleBlur() {
-        this.setState({selectedID: null})
-        console.log('state yo', this.state)
+        this.props.onCircleSelect(d.id)
     }
 
     componentDidMount() {
@@ -38,12 +37,11 @@ class MapGeo extends Component {
                 />
                 {this.props.searchResults && this.props.searchResults.map((d) => {
                     let bound = this.handleCircleK.bind(this, d)
-                    let boundBlur = this.handleCircleBlur.bind(this)
                     return (
-                        <div>
-                        <CircleMarker key={d.id} center={d.birthPlaceCoord} color={this.state.selectedID === d.id ? 'red' : 'gray'} onClick={bound} onBlur={boundBlur}/>
-                        <CircleMarker center={d.deathPlaceCoord} color={this.state.selectedID === d.id ? 'red' : 'gray'} onClick={bound} onBlur={boundBlur}/>
-                        <Polyline positions={[d.birthPlaceCoord, d.deathPlaceCoord]} color={this.state.selectedID === d.id ? 'red' : 'gray'} onClick={bound} onBlur={boundBlur}/>
+                        <div key={d.id}>
+                        <CircleMarker center={d.birthPlaceCoord} color={this.props.selectedID === d.id ? 'red' : 'gray'} onClick={bound}/>
+                        <CircleMarker center={d.deathPlaceCoord} color={this.props.selectedID === d.id ? 'red' : 'gray'} onClick={bound}/>
+                        <Polyline positions={[d.birthPlaceCoord, d.deathPlaceCoord]} color={this.props.selectedID === d.id ? 'red' : 'gray'} onClick={bound}/>
                         </div>
                     )
                 })}

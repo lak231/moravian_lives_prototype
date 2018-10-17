@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {XYPlot, XAxis, YAxis, VerticalRectSeries, Highlight} from 'react-vis'
+import {XYPlot, XAxis, YAxis, Highlight, VerticalBarSeries} from 'react-vis'
 
 export default class Timeline extends Component {
     constructor(props) {
@@ -8,8 +8,8 @@ export default class Timeline extends Component {
         this.updateDragState = this.updateDragState.bind(this)
     }
 
-    handleFormEvent() {
-
+    handleFormEvent(e) {
+        this.props.onFormEvent(e.target.value)
     }
 
     updateDragState(area) {
@@ -21,17 +21,14 @@ export default class Timeline extends Component {
         const selectionEnd = this.props.range.end
         const dateStart = new Date(selectionStart)
         const dateEnd = new Date(selectionEnd)
+        const data = this.props.timelineData
         return (
             <div className='uk-margin-small-top'>
-                <XYPlot stackBy={'y'} width={520} height={150} xType='time' xDomain={[new Date('1/1/1600'), new Date()]}>
+                <XYPlot width={520} height={150} xDomain={[new Date('1/1/1600').getTime(), new Date().getTime()]}>
                     <XAxis tickFormat={v => new Date(v).getFullYear()}/>
                     <YAxis />
-                    <VerticalRectSeries
-                        data={[
-                            {x: new Date('1-1-1600').getTime() + 5*86400000, y: 1},
-                            {x: new Date('1-1-1600').getTime() + 8*86400000, y: 2},
-                            {x: new Date('1-1-1600').getTime() + 25*86400000, y: 20},
-                        ]}
+                    <VerticalBarSeries
+                        data={data}
                         fill='gray'
                         colorType="literal"
                         getColor={d => {
@@ -55,9 +52,9 @@ export default class Timeline extends Component {
                     />
                 </XYPlot>
                 <div className='uk-flex uk-flex-center uk-margin-small-top'>
-                    <select className="uk-select uk-form-width-small">
-                        <option>Date of Birth</option>
-                        <option>Date of Death</option>
+                    <select onChange={this.handleFormEvent} className="uk-select uk-form-width-small">
+                        <option value={'day-birth'}>Date of Birth</option>
+                        <option value={'day-death'}>Date of Death</option>
                     </select>
 
                 </div>
