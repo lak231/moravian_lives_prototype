@@ -25,7 +25,7 @@ export default class MapSidebar extends Component {
                                 <MapSearchForm filters={this.props.filters} onFormEvent={this.props.onFormEvent} timelineData={this.props.timelineData}/>
                             </div>
                         </li>
-                        <li style={{'height': 'calc(100% - 60px)'}}>
+                        <li id='Map-Sidebar-Results' style={{'height': 'calc(100% - 60px)'}}>
                             <a className="uk-accordion-title">Results</a>
                             <div className="uk-accordion-content" style={{'overflowY': 'auto', 'height': 'calc(100% - 60px)'}}>
                                 {this.props.searchResults && <p>showing {this.props.searchResults.length} results</p>}

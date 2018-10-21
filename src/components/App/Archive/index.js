@@ -1,13 +1,10 @@
 import React, {Component} from 'react'
-// import PropTypes from 'prop-types'
-import * as ContactsAPI from '../../../utils/ContactsAPI'
+import MapSearchForm from "../Map/MapSidebar/SearchForm";
+import * as ContactsAPI from "../../../utils/ContactsAPI";
+import MapSidebar from "../Map/MapSidebar";
+import ResultCard from "../Map/MapSidebar/ResultCard";
 
-import MapGeo from './MapGeo';
-import MapSidebar from './MapSidebar'
-
-import './style.css'
-
-class Map extends Component {
+export default class Archive extends Component {
     constructor(props) {
         super(props)
         this.originalData = null
@@ -48,7 +45,6 @@ class Map extends Component {
         this.updateResults = this.updateResults.bind(this)
         this.handleFormEvent = this.handleFormEvent.bind(this)
         this.generateTimelineData = this.generateTimelineData.bind(this)
-        this.handleCircleSelect = this.handleCircleSelect.bind(this)
     }
 
     componentDidMount() {
@@ -123,13 +119,6 @@ class Map extends Component {
         this.updateResults(filters)
     }
 
-    handleCircleSelect(selectedID) {
-        this.setState({selectedID})
-        let content = document.getElementsByClassName('MapSidebar')[0]
-        content.classList.toggle('MapSidebar_show')
-        content = document.getElementById('Map-Sidebar-Results')
-        content.classList.toggle('uk-open')
-    }
 
     updateResults(filters) {
         let activeFilters = {}
@@ -199,9 +188,6 @@ class Map extends Component {
         )
         this.setState({filters, results})
     }
-
-
-
     render() {
         let timelineData
         if (this.state.filters.timeline.type === 'day-death') {
@@ -211,23 +197,22 @@ class Map extends Component {
         }
         if (this.state.results) {
             return (
-                <div className='Map uk-inline uk-width-1-1'>
-                    <MapGeo searchResults={this.state.results} onCircleSelect={this.handleCircleSelect} selectedID={this.state.selectedID}/>
-                    <MapSidebar
-                        onFormEvent={this.handleFormEvent}
-                        filters={this.state.filters}
-                        searchResults={this.state.results}
-                        timelineData = {timelineData}
-                    />
+                <div className='uk-container uk-container-expand uk-margin-xlarge-right uk-margin-xlarge-left' data-uk-grid>
+                    <div className='uk-width-3-4'>
+                        {this.state.results && this.state.results.map(d => <ResultCard key={d.id} data={d}/>)}
+                    </div>
+
+                    <div className='uk-width-1-4'>
+                        <MapSearchForm onFormEvent={this.handleFormEvent}
+                                       filters={this.state.filters}
+                                       timelineData = {timelineData}/>
+                    </div>
                 </div>
             )
-        } else {
+        }
+        else {
             return (<div>Loading...</div>)
         }
+
     }
-
 }
-
-
-
-export default Map
