@@ -57,6 +57,7 @@ class Map extends Component {
             this.setState({results: contacts})
             this.generateTimelineData(contacts)
         })
+        fetch('https://pubapps.bucknell.edu/moravianlives/data/person/').catch().then(response => console.log(response.json()))
     }
 
     generateTimelineData (results) {
@@ -129,6 +130,7 @@ class Map extends Component {
         content.classList.toggle('MapSidebar_show')
         content = document.getElementById('Map-Sidebar-Results')
         content.classList.toggle('uk-open')
+        document.getElementById(selectedID).classList.toggle('uk-background-muted')
     }
 
     updateResults(filters) {

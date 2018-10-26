@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Map from "../Map";
+import Network from "../Network";
 
 
 export default class Individual extends Component {
@@ -30,7 +31,7 @@ export default class Individual extends Component {
                         <li>
                             <Map/>
                         </li>
-                        <li>Bazinga!</li>
+                        <li><Network/></li>
                     </ul>
                 </div>
             </div>

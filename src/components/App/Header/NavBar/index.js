@@ -16,6 +16,9 @@ function NavBar (props) {
                         <li>
                             <NavLink activeClassName='uk-active' to="/archive">Archive</NavLink>
                         </li>
+                        <li>
+                            <NavLink activeClassName='uk-active' to="/person">Individual</NavLink>
+                        </li>
                     </ul>
                 </div>
             </nav>
