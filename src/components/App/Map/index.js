@@ -57,7 +57,7 @@ class Map extends Component {
             this.setState({results: contacts})
             this.generateTimelineData(contacts)
         })
-        fetch('https://pubapps.bucknell.edu/moravianlives/data/person/').catch().then(response => console.log(response.json()))
+        fetch('https://pubapps.bucknell.edu/moravianlives/data/person/').catch().then(response => response.json()).then(data => console.log(data))
     }
 
     generateTimelineData (results) {

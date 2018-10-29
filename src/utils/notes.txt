@@ -1,0 +1,9 @@
+10/26/18
+
+Observations/questions on data model:
+    -   Will the variable names stay the same?
+    -   Only one kind of connections (partner)
+        -   Maybe connection should be its own kind of object (with type and ID arrays or something)
+    -   Places don't include coordinates
+    -   What format will the content be in? (plain text vs. markup)
+
