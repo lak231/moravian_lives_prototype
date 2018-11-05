@@ -205,7 +205,9 @@ export default class Archive extends Component {
                     <div className='uk-width-1-4'>
                         <MapSearchForm onFormEvent={this.handleFormEvent}
                                        filters={this.state.filters}
-                                       timelineData = {timelineData}/>
+                                       timelineData={timelineData}
+                                       timelineWidth={400}
+                        />
                     </div>
                 </div>
             )

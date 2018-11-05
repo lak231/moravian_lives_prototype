@@ -24,7 +24,7 @@ export default class Timeline extends Component {
         const data = this.props.timelineData
         return (
             <div className='uk-margin-small-top'>
-                <XYPlot width={520} height={150} xDomain={[new Date('1/1/1600').getTime(), new Date().getTime()]}>
+                <XYPlot width={this.props.width} height={150} xDomain={[new Date('1/1/1600').getTime(), new Date().getTime()]}>
                     <XAxis tickFormat={v => new Date(v).getFullYear()}/>
                     <YAxis />
                     <VerticalBarSeries

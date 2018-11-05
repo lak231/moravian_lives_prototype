@@ -6,6 +6,7 @@ import MapGeo from './MapGeo';
 import MapSidebar from './MapSidebar'
 
 import './style.css'
+import * as UIkit from "uikit";
 
 class Map extends Component {
     constructor(props) {
@@ -56,8 +57,8 @@ class Map extends Component {
             this.originalData = contacts
             this.setState({results: contacts})
             this.generateTimelineData(contacts)
+            this.forceUpdate()
         })
-        fetch('https://pubapps.bucknell.edu/moravianlives/data/person/').catch().then(response => response.json()).then(data => console.log(data))
     }
 
     generateTimelineData (results) {
@@ -125,12 +126,26 @@ class Map extends Component {
     }
 
     handleCircleSelect(selectedID) {
-        this.setState({selectedID})
-        let content = document.getElementsByClassName('MapSidebar')[0]
-        content.classList.toggle('MapSidebar_show')
-        content = document.getElementById('Map-Sidebar-Results')
-        content.classList.toggle('uk-open')
-        document.getElementById(selectedID).classList.toggle('uk-background-muted')
+        if (this.state.selectedID === selectedID) {
+            this.setState({selectedID: null})
+        } else {
+            this.setState({selectedID})
+        }
+        if (this.state.selectedID) {
+            let timeout = 0
+            const sidebar = document.getElementsByClassName('MapSidebar')[0]
+            const content = document.getElementById('MapSidebar-Results')
+            const card = document.getElementById(this.state.selectedID)
+            if (!sidebar.classList.contains('MapSidebar_show')) {
+                sidebar.classList.toggle('MapSidebar_show')
+                timeout = 350
+            }
+            if (!content.classList.contains('uk-open')) {
+                UIkit.accordion('#MapSidebar-Accordion').toggle(1)
+                timeout = 350
+            }
+            setTimeout(() => card.scrollIntoView({behavior: 'smooth'}), timeout)
+        }
     }
 
     updateResults(filters) {
@@ -220,6 +235,8 @@ class Map extends Component {
                         filters={this.state.filters}
                         searchResults={this.state.results}
                         timelineData = {timelineData}
+                        selectedID = {this.state.selectedID}
+                        timelineWidth={520}
                     />
                 </div>
             )

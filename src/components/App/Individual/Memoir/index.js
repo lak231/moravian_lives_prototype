@@ -1,0 +1,13 @@
+import React from 'react';
+
+export default function Memoir (props) {
+    return (
+        <div className='uk-text-left'>
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mi in nulla posuere sollicitudin aliquam ultrices sagittis. Pulvinar pellentesque habitant morbi tristique senectus et netus et malesuada. Fermentum posuere urna nec tincidunt praesent. At tellus at urna condimentum mattis pellentesque. Leo integer malesuada nunc vel risus. Mauris in aliquam sem fringilla ut morbi tincidunt augue interdum. Urna id volutpat lacus laoreet non curabitur. Etiam sit amet nisl purus in mollis. Mauris a diam maecenas sed enim ut sem. Morbi tincidunt ornare massa eget egestas purus viverra accumsan. Dolor sit amet consectetur adipiscing elit duis tristique sollicitudin nibh. Ac feugiat sed lectus vestibulum mattis ullamcorper velit sed. Orci eu lobortis elementum nibh tellus. Eget lorem dolor sed viverra ipsum nunc aliquet bibendum. Id diam maecenas ultricies mi eget mauris pharetra et. Viverra aliquet eget sit amet tellus.</p>
+
+            <p>Nisl purus in mollis nunc sed id. Augue interdum velit euismod in pellentesque massa. Mi sit amet mauris commodo quis imperdiet massa tincidunt nunc. Volutpat odio facilisis mauris sit amet massa vitae. Commodo viverra maecenas accumsan lacus. Adipiscing elit pellentesque habitant morbi tristique senectus et netus et. Fringilla ut morbi tincidunt augue interdum. Rhoncus mattis rhoncus urna neque viverra justo. Varius sit amet mattis vulputate enim nulla aliquet. Mi quis hendrerit dolor magna eget est lorem. </p>
+
+            <p>Odio facilisis mauris sit amet massa vitae. Amet nisl suscipit adipiscing bibendum est ultricies integer. Arcu dictum varius duis at consectetur lorem donec massa sapien. Morbi tempus iaculis urna id volutpat lacus laoreet non. Sed id semper risus in. Nisi scelerisque eu ultrices vitae auctor eu. Malesuada bibendum arcu vitae elementum curabitur. Nunc mattis enim ut tellus elementum. Facilisi nullam vehicula ipsum a arcu cursus vitae. Sagittis eu volutpat odio facilisis mauris sit amet massa vitae. Dignissim suspendisse in est ante in. Massa ultricies mi quis hendrerit dolor magna eget. Sit amet tellus cras adipiscing enim eu turpis. Nibh praesent tristique magna sit. Elementum tempus egestas sed sed risus pretium. A arcu cursus vitae congue mauris. Lorem sed risus ultricies tristique nulla aliquet enim. Ipsum a arcu cursus vitae congue mauris rhoncus aenean vel. Cursus mattis molestie a iaculis. Sit amet nisl purus in.</p>
+        </div>
+    )
+}

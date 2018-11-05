@@ -12,16 +12,9 @@ class MapGeo extends Component {
         this.handleCircleK = this.handleCircleK.bind(this)
     }
 
-    // componentWillMount() {
-    //     document.addEventListener('mousedown', this.handleCircleK, false)
-    // }
-    //
-    // componentWillUnmount() {
-    //     document.removeEventListener('mousedown', this.handleCircleK, false)
-    // }
-
     handleCircleK(d) {
         this.props.onCircleSelect(d.id)
+
     }
 
     componentDidMount() {
