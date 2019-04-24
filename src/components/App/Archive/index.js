@@ -48,11 +48,11 @@ export default class Archive extends Component {
     }
 
     componentDidMount() {
-        ContactsAPI.getAll().then((contacts) => {
-            this.originalData = contacts
-            this.setState({results: contacts})
-            this.generateTimelineData(contacts)
-        })
+        const contacts = ContactsAPI.getAll()
+        this.originalData = contacts
+        this.setState({results: contacts})
+        this.generateTimelineData(contacts)
+        this.forceUpdate()
     }
 
     generateTimelineData (results) {

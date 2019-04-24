@@ -53,12 +53,12 @@ class Map extends Component {
     }
 
     componentDidMount() {
-        ContactsAPI.getAll().then((contacts) => {
+        const contacts = ContactsAPI.getAll()
             this.originalData = contacts
             this.setState({results: contacts})
             this.generateTimelineData(contacts)
             this.forceUpdate()
-        })
+
     }
 
     generateTimelineData (results) {
